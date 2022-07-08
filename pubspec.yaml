@@ -41,6 +41,7 @@ dependencies:
   stream_transform: ^2.0.0
   rxdart: ^0.27.4
   flutter_tts: ^3.5.0
+  flag: ^6.0.0
 
 dev_dependencies:
   flutter_test:

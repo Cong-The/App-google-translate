@@ -1,7 +1,9 @@
+import 'package:app_trans/src/bloc/blocs.dart';
 import 'package:app_trans/src/ui/design/app_colors.dart';
 import 'package:app_trans/src/ui/design/app_text_style.dart';
 import 'package:app_trans/src/ui/screen/screen2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppTranslate extends StatefulWidget {
   const AppTranslate({Key? key}) : super(key: key);
@@ -14,10 +16,22 @@ bool click = false;
 
 class _AppTranslateState extends State<AppTranslate> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    blocsInitData();
+  }
+
+  void blocsInitData() {
+    BlocProvider.of<TranslateBloc>(context).add(const GgTranslateInit(
+        inputText: '', resultText: '', from: 'en', to: 'vi'));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsPrimary.P0,
-      body: click ? Screen2() : _body(),
+      body: click ? const Screen2() : _body(),
     );
   }
 

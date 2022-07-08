@@ -105,10 +105,11 @@ class _Screen2State extends State<Screen2> {
                 Expanded(
                   child: TextField(
                     controller: controller,
-                    onChanged: (value) async {
+                    onChanged: (value) {
                       context
                           .read<TranslateBloc>()
-                          .add(GgTrans(input: controller.text));
+                          .add(GgTransInput(input: controller.text));
+
                       setState(() {
                         result = state.resultText;
                       });
@@ -139,6 +140,7 @@ class _Screen2State extends State<Screen2> {
             icon: const Icon(
               Icons.play_arrow,
               color: ColorsBlue.Blu0,
+              size: 24,
             ));
       },
     );

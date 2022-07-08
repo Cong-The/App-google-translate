@@ -7,10 +7,10 @@ part 'translate_event.dart';
 part 'translate_state.dart';
 
 class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
-  EventTransformer<Event> debounceSequential<Event>(Duration duration) {
-    return (events, mapper) =>
-        events.debounceTime(duration).asyncExpand(mapper);
-  }
+  // EventTransformer<Event> debounceSequential<Event>(Duration duration) {
+  //   return (events, mapper) =>
+  //       events.debounceTime(duration).asyncExpand(mapper);
+  // }
 
   final GoogleTranslator googleTranslator = GoogleTranslator();
 
@@ -22,7 +22,7 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
     );
     on<GgTransChangeLanguage>(_onGgTransChangeLanguage);
     on<GgTransResultLanguage>(_onGgTransResultLanguage);
-    on<GgTransResultText>(_onGgTransResultText);
+    // on<GgTransResultText>(_onGgTransResultText);
     on<GgTrans>(
       _onGgTrans,
       // transformer: debounceSequential(const Duration(microseconds: 300)),
@@ -53,18 +53,19 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
     emitter(state.cloneWith(resultLanguage: event.to));
   }
 
-  void _onGgTransResultText(
-      GgTransResultText event, Emitter<TranslateState> emitter) {
-    emitter(state.cloneWith(
-      // inputText: state.inputText,
-      // inputLanguage: state.inputLanguage,
-      resultText: state.resultText,
-      // resultLanguage: state.resultLanguage
-    ));
-  }
+  // void _onGgTransResultText(
+  //     GgTransResultText event, Emitter<TranslateState> emitter) {
+  //   emitter(state.cloneWith(
+  //       inputText: state.inputText,
+  //       inputLanguage: state.inputLanguage,
+  //       resultText: state.resultText,
+  //       resultLanguage: state.resultLanguage));
+  // }
 
-  Future<TranslateState> _onGgTrans(
+  Future<void> _onGgTrans(
       GgTrans event, Emitter<TranslateState> emitter) async {
+    print(state.inputLanguage);
+    print(state.resultLanguage);
     if (event.input.trim() != "" && event.input.isNotEmpty) {
       final Translation resultText =
           await googleTranslator.translate(event.input,
@@ -73,9 +74,8 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
               to: state.resultLanguage
               // to: 'vi'
               );
+
       emitter(state.cloneWith(resultText: resultText.text));
-      return state.cloneWith(resultText: resultText.text);
     }
-    return state.cloneWith(resultText: '');
   }
 }

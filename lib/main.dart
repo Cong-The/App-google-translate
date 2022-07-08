@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   // Bloc.observer = SimPBlocObserver();
-  BlocOverrides.runZoned(() => runApp(const MyApp()),
-      blocObserver: SimPBlocObserver());
+  BlocOverrides.runZoned(
+    () => runApp(const MyApp()),
+    // blocObserver: SimPBlocObserver()
+  );
 }
 
 class MyApp extends StatelessWidget {
