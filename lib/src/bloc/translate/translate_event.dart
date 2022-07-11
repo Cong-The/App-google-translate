@@ -25,8 +25,6 @@ class GgTranslateInit extends TranslateEvent {
 class GgTransInput extends TranslateEvent {
   final String input;
   const GgTransInput({required this.input});
-  @override
-  List get props => [input];
 }
 
 class GgTransChangeLanguage extends TranslateEvent {
@@ -39,11 +37,9 @@ class GgTransResultLanguage extends TranslateEvent {
   const GgTransResultLanguage({required this.to});
 }
 
-class GgTransResultText extends TranslateEvent {}
+class GgTransSwapLanguge extends TranslateEvent {}
 
 class GgTrans extends TranslateEvent {
   final String input;
   const GgTrans({required this.input});
-  @override
-  List get props => [input];
 }

@@ -16,22 +16,9 @@ bool click = false;
 
 class _AppTranslateState extends State<AppTranslate> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    blocsInitData();
-  }
-
-  void blocsInitData() {
-    BlocProvider.of<TranslateBloc>(context).add(const GgTranslateInit(
-        inputText: '', resultText: '', from: 'en', to: 'vi'));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsPrimary.P0,
-      body: click ? const Screen2() : _body(),
+    return Container(
+      child: click ? const Screen2() : _body(),
     );
   }
 

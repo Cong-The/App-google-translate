@@ -14,7 +14,6 @@ class TranslateState extends Equatable {
   // TODO: implement props
   List<Object?> get props =>
       [inputText, inputLanguage, resultText, resultLanguage];
-  // List<Object?> get props => [];
 
   TranslateState cloneWith({
     String? inputText,
@@ -23,10 +22,10 @@ class TranslateState extends Equatable {
     String? resultLanguage,
   }) {
     return TranslateState(
-        inputLanguage: inputLanguage ?? '',
-        inputText: inputText ?? '',
-        resultLanguage: resultLanguage ?? '',
-        resultText: resultText ?? '');
+        inputLanguage: inputLanguage ?? this.inputLanguage,
+        inputText: inputText ?? this.inputText,
+        resultLanguage: resultLanguage ?? this.resultLanguage,
+        resultText: resultText ?? this.resultText);
   }
 }
 
