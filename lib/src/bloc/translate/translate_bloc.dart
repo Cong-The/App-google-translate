@@ -7,10 +7,10 @@ part 'translate_event.dart';
 part 'translate_state.dart';
 
 class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
-  // EventTransformer<Event> debounceSequential<Event>(Duration duration) {
-  //   return (events, mapper) =>
-  //       events.debounceTime(duration).asyncExpand(mapper);
-  // }
+  EventTransformer<Event> debounceSequential<Event>(Duration duration) {
+    return (events, mapper) =>
+        events.debounceTime(duration).asyncExpand(mapper);
+  }
 
   final GoogleTranslator googleTranslator = GoogleTranslator();
 
@@ -18,7 +18,6 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
     on<GgTranslateInit>(_onGgTranslateInit);
     on<GgTransInputText>(
       _onGgTransInput,
-      // transformer: debounceSequential(const Duration(microseconds: 300))
     );
     on<GgTransInputLanguage>(_onGgTransChangeLanguage);
     on<GgTransResultLanguage>(_onGgTransResultLanguage);
@@ -76,6 +75,8 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
         to: state.resultLanguage,
       );
       emitter(state.cloneWith(resultText: resultText.text));
+    } else {
+      emitter(state.cloneWith(resultText: ""));
     }
   }
 }
