@@ -22,14 +22,14 @@ class GgTranslateInit extends TranslateEvent {
   List<Object?> get props => [inputText, resultText, from, to];
 }
 
-class GgTransInput extends TranslateEvent {
+class GgTransInputText extends TranslateEvent {
   final String input;
-  const GgTransInput({required this.input});
+  const GgTransInputText({required this.input});
 }
 
-class GgTransChangeLanguage extends TranslateEvent {
+class GgTransInputLanguage extends TranslateEvent {
   final String? from;
-  const GgTransChangeLanguage({required this.from});
+  const GgTransInputLanguage({required this.from});
 }
 
 class GgTransResultLanguage extends TranslateEvent {

@@ -16,11 +16,11 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
 
   TranslateBloc() : super(const TranslateInitial()) {
     on<GgTranslateInit>(_onGgTranslateInit);
-    on<GgTransInput>(
+    on<GgTransInputText>(
       _onGgTransInput,
       // transformer: debounceSequential(const Duration(microseconds: 300))
     );
-    on<GgTransChangeLanguage>(_onGgTransChangeLanguage);
+    on<GgTransInputLanguage>(_onGgTransChangeLanguage);
     on<GgTransResultLanguage>(_onGgTransResultLanguage);
     on<GgTransSwapLanguge>(_onGgTransSwapLanguge);
     on<GgTrans>(
@@ -38,13 +38,14 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
         resultLanguage: event.to));
   }
 
-  void _onGgTransInput(GgTransInput event, Emitter<TranslateState> emitter) {
+  void _onGgTransInput(
+      GgTransInputText event, Emitter<TranslateState> emitter) {
     emitter(state.cloneWith(inputText: event.input));
     add(GgTrans(input: event.input));
   }
 
   void _onGgTransChangeLanguage(
-      GgTransChangeLanguage event, Emitter<TranslateState> emitter) {
+      GgTransInputLanguage event, Emitter<TranslateState> emitter) {
     emitter(state.cloneWith(inputLanguage: event.from));
   }
 
@@ -60,10 +61,10 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
       GgTransSwapLanguge event,
       Emitter<TranslateState> emitter) {
     emitter(state.cloneWith(
-        inputText: state.inputText,
-        inputLanguage: state.inputLanguage,
-        resultText: state.resultText,
-        resultLanguage: state.resultLanguage));
+        inputText: state.resultText,
+        inputLanguage: state.resultLanguage,
+        resultText: state.inputText,
+        resultLanguage: state.inputLanguage));
   }
 
   Future<void> _onGgTrans(
@@ -74,7 +75,6 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
         from: state.inputLanguage,
         to: state.resultLanguage,
       );
-
       emitter(state.cloneWith(resultText: resultText.text));
     }
   }

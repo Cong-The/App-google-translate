@@ -7,40 +7,37 @@ class MucUuThich extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsPrimary.P0,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              title(),
-              const SizedBox(
-                height: 48,
-              ),
-              Text(
-                'Value Title language',
-                style: AppTextStyle.textStyle.s32().cBla1().w600(),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              saveTranslate(context),
-              const SizedBox(
-                height: 48,
-              ),
-              Text(
-                'Gần đây',
-                style: AppTextStyle.textStyle.s32().cBla1().w600(),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              saveTranslate(context),
-            ],
-          ),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            title(),
+            const SizedBox(
+              height: 48,
+            ),
+            Text(
+              'Value Title language',
+              style: AppTextStyle.textStyle.s32().cBla1().w600(),
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            saveTranslate(context),
+            const SizedBox(
+              height: 48,
+            ),
+            Text(
+              'Gần đây',
+              style: AppTextStyle.textStyle.s32().cBla1().w600(),
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            saveTranslate(context),
+          ],
         ),
       ),
     );
