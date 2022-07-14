@@ -28,4 +28,4 @@ class TextToSpeechPlay extends TextToSpeechEvent {
   });
 }
 
-class TextToSpeechStop extends TextToSpeechEvent {}
+class TextToSpeechPause extends TextToSpeechEvent {}

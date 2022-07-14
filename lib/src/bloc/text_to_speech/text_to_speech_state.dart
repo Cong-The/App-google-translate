@@ -3,7 +3,6 @@ part of 'text_to_speech_bloc.dart';
 enum TextToSpeechStatus { playing, stoped, paused, continued }
 
 class TextToSpeechState extends Equatable {
-  final List<Object?> languages;
   final String language;
 
   final TextToSpeechStatus status;
@@ -11,15 +10,14 @@ class TextToSpeechState extends Equatable {
   final double pitch;
   final double rate;
   const TextToSpeechState(
-      {this.languages = const [],
-      this.language = '',
+      {this.language = '',
       this.status = TextToSpeechStatus.stoped,
       this.volume = 0.5,
       this.pitch = 1,
       this.rate = 0.5});
 
   @override
-  List<Object> get props => [languages, volume, language, pitch, rate];
+  List<Object> get props => [volume, language, pitch, rate];
 
   TextToSpeechState cloneWith({
     List<Object?>? languages,
@@ -30,7 +28,6 @@ class TextToSpeechState extends Equatable {
     double? rate,
   }) {
     return TextToSpeechState(
-        languages: languages ?? this.languages,
         language: language ?? this.language,
         status: status ?? this.status,
         volume: volume ?? this.volume,

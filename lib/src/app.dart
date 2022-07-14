@@ -1,5 +1,4 @@
 import 'package:app_trans/src/bloc/translate/translate_bloc.dart';
-import 'package:app_trans/src/constant/iso_language.dart';
 import 'package:app_trans/src/ui/design/app_colors.dart';
 import 'package:app_trans/src/ui/screen/chat.dart';
 import 'package:app_trans/src/ui/screen/choose_language.dart';
@@ -43,6 +42,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       body: SafeArea(child: _widgetOption.elementAt(_selectedIndex)),

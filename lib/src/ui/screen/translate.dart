@@ -23,9 +23,8 @@ class _TranslateState extends State<Translate> {
     return BlocBuilder<TranslateBloc, TranslateState>(
         builder: (context, state) {
       return SingleChildScrollView(
+        reverse: true,
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +40,7 @@ class _TranslateState extends State<Translate> {
                 height: 450,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Expanded(
                       child: SingleChildScrollView(child: _resultTranslate()),
                     ),
@@ -62,7 +61,6 @@ class _TranslateState extends State<Translate> {
 
   Widget _inputText() {
     return Container(
-      height: 200,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(32),
       decoration: const BoxDecoration(
