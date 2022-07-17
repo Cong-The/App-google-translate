@@ -28,7 +28,6 @@ class TextToSpeechBloc extends Bloc<TextToSpeechEvent, TextToSpeechState> {
       TextToSpeechPlay event, Emitter<TextToSpeechState> emitter) async {
     // await flutterTts.pause();
     // await flutterTts.continueHandler;
-
     await flutterTts.setVolume(state.volume);
     await flutterTts.setPitch(state.pitch);
     await flutterTts.setSpeechRate(state.rate);

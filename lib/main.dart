@@ -1,4 +1,5 @@
 import 'package:app_trans/src/app.dart';
+import 'package:app_trans/src/bloc/blocs.dart';
 import 'package:app_trans/src/bloc/text_to_speech/text_to_speech_bloc.dart';
 import 'package:app_trans/src/bloc/translate/blocover.dart';
 import 'package:app_trans/src/bloc/translate/translate_bloc.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<TextToSpeechBloc>(
           create: (BuildContext context) => TextToSpeechBloc(),
+        ),
+        BlocProvider<SpeechToTextBloc>(
+          create: (BuildContext context) => SpeechToTextBloc(),
         ),
       ],
       child: const MaterialApp(home: App()),

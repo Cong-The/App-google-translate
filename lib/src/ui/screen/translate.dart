@@ -1,3 +1,4 @@
+import 'package:app_trans/src/bloc/speech_to_text/speech_to_text_bloc.dart';
 import 'package:app_trans/src/bloc/translate/translate_bloc.dart';
 import 'package:app_trans/src/constant/iso_language.dart';
 import 'package:app_trans/src/ui/design/app_colors.dart';
@@ -60,48 +61,59 @@ class _TranslateState extends State<Translate> {
   }
 
   Widget _inputText() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(32),
-      decoration: const BoxDecoration(
-        color: ColorsWhite.W0,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-      ),
-      child: Column(
-        children: [
-          TextField(
-            autofocus: true,
-            controller: controller,
-            onChanged: (value) {
-              context
-                  .read<TranslateBloc>()
-                  .add(GgTransInputText(input: controller.text));
-            },
-            decoration: InputDecoration.collapsed(
-              hintText: 'Enter text',
-              hintStyle: AppTextStyle.textStyle.s24().w500().cG0(),
+    return BlocBuilder<SpeechToTextBloc, SpeechToTextState>(
+      builder: (context, state) {
+        if (state.status == SpeechToTextStatus.recognizing) {
+          context
+              .watch<TranslateBloc>()
+              .add(GgTransInputText(input: state.recognizedWords));
+          return Text(state.recognizedWords);
+        } else {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              color: ColorsWhite.W0,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
             ),
-          ),
-          Stack(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: const BoxDecoration(
-                    color: ColorsBlue.Blu0, shape: BoxShape.circle),
-                child: const Center(
-                  child: Icon(
-                    Icons.mic,
-                    size: 48,
-                    color: ColorsWhite.W0,
+            child: Column(
+              children: [
+                TextField(
+                  // autofocus: true,
+                  controller: controller,
+                  onChanged: (value) {
+                    context
+                        .read<TranslateBloc>()
+                        .add(GgTransInputText(input: controller.text));
+                  },
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'Enter text',
+                    hintStyle: AppTextStyle.textStyle.s24().w500().cG0(),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
+                // Stack(
+                //   children: [
+                //     Container(
+                //       width: 60,
+                //       height: 60,
+                //       decoration: const BoxDecoration(
+                //           color: ColorsBlue.Blu0, shape: BoxShape.circle),
+                //       child: const Center(
+                //         child: Icon(
+                //           Icons.mic,
+                //           size: 48,
+                //           color: ColorsWhite.W0,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 

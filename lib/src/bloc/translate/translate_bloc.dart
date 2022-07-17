@@ -56,9 +56,7 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
   }
 
   void _onGgTransSwapLanguge(
-      // chua dao lai
-      GgTransSwapLanguge event,
-      Emitter<TranslateState> emitter) {
+      GgTransSwapLanguge event, Emitter<TranslateState> emitter) {
     emitter(state.cloneWith(
         inputText: state.resultText,
         inputLanguage: state.resultLanguage,
@@ -68,6 +66,9 @@ class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
 
   Future<void> _onGgTrans(
       GgTrans event, Emitter<TranslateState> emitter) async {
+    if (event.input == "" || event.input.isEmpty) {
+      emitter(state.cloneWith(resultText: ""));
+    }
     if (event.input.trim() != "" && event.input.isNotEmpty) {
       final Translation resultText = await googleTranslator.translate(
         event.input,

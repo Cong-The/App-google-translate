@@ -1,3 +1,4 @@
+import 'package:app_trans/src/bloc/speech_to_text/speech_to_text_bloc.dart';
 import 'package:app_trans/src/bloc/translate/translate_bloc.dart';
 import 'package:app_trans/src/ui/design/app_colors.dart';
 import 'package:app_trans/src/ui/screen/chat.dart';
@@ -7,6 +8,7 @@ import 'package:app_trans/src/ui/screen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -31,6 +33,7 @@ class _AppState extends State<App> {
   void blocInitData() {
     context.read<TranslateBloc>().add(const GgTranslateInit(
         inputText: '', resultText: '', from: 'en', to: 'vi'));
+    context.read<SpeechToTextBloc>().add(SpeechToTextInitData());
   }
 
   void _onItemTapped(int index) {
@@ -42,11 +45,56 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      appBar: _appBar(),
-      bottomNavigationBar: _bottomNavigationBar(),
-      body: SafeArea(child: _widgetOption.elementAt(_selectedIndex)),
-    );
+        // resizeToAvoidBottomInset: false,
+        appBar: _appBar(),
+        bottomNavigationBar: _bottomNavigationBar(),
+        body: SafeArea(child: _widgetOption.elementAt(_selectedIndex)),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: BlocBuilder<SpeechToTextBloc, SpeechToTextState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+              onPressed: () {
+                context
+                    .read<SpeechToTextBloc>()
+                    .add(SpeechToTextStartRecognizing());
+                context
+                    .read<TranslateBloc>()
+                    .add(GgTransInputText(input: state.recognizedWords));
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                        color: ColorsBlue.Blu0, shape: BoxShape.circle),
+                    child: const Center(
+                      child: Icon(
+                        Icons.mic,
+                        size: 48,
+                        color: ColorsWhite.W0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        )
+
+        // AvatarGlow(
+        //   animate: _isListening,
+        //   glowColor: Theme.of(context).primaryColor,
+        //   endRadius: 75.0,
+        //   duration: const Duration(milliseconds: 2000),
+        //   repeatPauseDuration: const Duration(milliseconds: 100),
+        //   repeat: true,
+        //   child: FloatingActionButton(
+        //     onPressed: _listen,
+        //     child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+        //   ),
+        // ),
+        );
   }
 
   Widget _bottomNavigationBar() {
