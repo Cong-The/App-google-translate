@@ -1,9 +1,6 @@
 import 'package:app_trans/src/app.dart';
 import 'package:app_trans/src/bloc/blocs.dart';
-import 'package:app_trans/src/bloc/text_to_speech/text_to_speech_bloc.dart';
 import 'package:app_trans/src/bloc/translate/blocover.dart';
-import 'package:app_trans/src/bloc/translate/translate_bloc.dart';
-import 'package:app_trans/src/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,8 +12,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -31,7 +26,7 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => SpeechToTextBloc(),
         ),
       ],
-      child: const MaterialApp(home: App()),
+      child: const MaterialApp(debugShowCheckedModeBanner: false, home: App()),
     );
   }
 }

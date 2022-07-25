@@ -1,16 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:translator/translator.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'translate_event.dart';
 part 'translate_state.dart';
 
 class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
-  EventTransformer<Event> debounceSequential<Event>(Duration duration) {
-    return (events, mapper) =>
-        events.debounceTime(duration).asyncExpand(mapper);
-  }
+  // EventTransformer<Event> debounceSequential<Event>(Duration duration) {
+  //   return (events, mapper) =>
+  //       events.debounceTime(duration).asyncExpand(mapper);
+  // }
 
   final GoogleTranslator googleTranslator = GoogleTranslator();
 

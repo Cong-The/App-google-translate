@@ -15,7 +15,6 @@ class TextToSpeechBloc extends Bloc<TextToSpeechEvent, TextToSpeechState> {
 
   Future<void> _onTTSInitData(
       TextToSpeechInitData event, Emitter<TextToSpeechState> emitter) async {
-    // final langusge = await flutterTts.getLanguages as List;
     emitter(state.cloneWith(
       volume: 0.5,
       pitch: 1,
@@ -31,7 +30,6 @@ class TextToSpeechBloc extends Bloc<TextToSpeechEvent, TextToSpeechState> {
     await flutterTts.setVolume(state.volume);
     await flutterTts.setPitch(state.pitch);
     await flutterTts.setSpeechRate(state.rate);
-    // await flutterTts.setLanguage('vi');
     await flutterTts.setLanguage(state.language);
     if (event.text.trim() != "") {
       await flutterTts.speak(event.text);
